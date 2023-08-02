@@ -20,19 +20,4 @@ eventRouter.get('/:id', getEvent)
 eventRouter.delete('/:id', deleteEvent)
 eventRouter.put('/:id', updateEvent)
 
-//eventRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
-//    try {
-//        const { user } = req;
-//        if (!user || !user.id) throw new ApiError('Unauthorized', httpStatusCodes.UNAUTHENTICATED);
-//        const payload: CreateEventDTO = req.body;
-//        payload.userId = user.id;
-
-//        const userEvents = EventController.create(payload);
-//        res.status(200).send(userEvents);
-//    } catch (error) {
-//        next(error);
-//    }
-//})
-
-//eventRouter.post('/', EventController.createEvent)
 export default eventRouter;
