@@ -2,6 +2,7 @@ import { Optional } from 'sequelize';
 import { Table, Column, Model, HasMany, PrimaryKey, DataType, CreatedAt, BeforeSave } from 'sequelize-typescript';
 import bcrypt from 'bcrypt';
 import Event from './Event.model';
+import Invitation from './Invitation.model';
 
 interface UserAttributes {
   readonly id: typeof DataType.UUID;
@@ -58,6 +59,12 @@ export default class User extends Model<UserAttributes, UserInput> implements Us
 
   @HasMany(() => Event, 'userId')
   events!: Event[];
+  
+  @HasMany(() => Invitation, 'invitedTo')
+  eventInvitation!: Invitation[];
+  
+  @HasMany(() => Invitation, 'invitedBy')
+  eventInvitationSent!: Invitation[];
 
 
   @BeforeSave

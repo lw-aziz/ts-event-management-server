@@ -1,6 +1,7 @@
-import { Table, Column, Model, ForeignKey, BelongsTo, PrimaryKey, IsAfter, DataType, CreatedAt } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey, BelongsTo, PrimaryKey, IsAfter, DataType, CreatedAt, HasMany } from 'sequelize-typescript';
 import User from './User.model';
 import { Optional } from 'sequelize';
+import Invitation from './Invitation.model';
 
 interface EventAttributes {
   readonly id: typeof DataType.UUID;
@@ -63,6 +64,9 @@ export default class Event extends Model implements EventAttributes {
 
   @BelongsTo(() => User, 'userId')
   user!: User;
+
+  @HasMany(() => Invitation, 'eventId')
+  invitations!: Invitation[];
 
   public async getUser(): Promise<User> {
     return this.user;
