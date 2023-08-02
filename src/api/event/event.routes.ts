@@ -1,10 +1,5 @@
-import { NextFunction } from 'express';
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { isAuthenticated } from '../middleware/authenticate';
-import EventController from './controller/event.controller';
-import { ApiError } from '../../utils/custom-api-error';
-import { httpStatusCodes } from '../../utils/httpStatusCodes';
-import { CreateEventDTO } from '../../schema/dto/event.dt';
 import getEvents from './controller/get.events';
 import createEvent from './controller/create.event';
 import getEvent from './controller/get.event';

@@ -1,7 +1,7 @@
 import { AbstractDataTypeConstructor } from "sequelize";
 import { EventDAL } from "../../../schema/dal/event.dal";
 import { EventOutput } from "../../../schema/models/Event.model";
-import { CreateEventDTO } from "../../../schema/dto/event.dt";
+import { CreateEventDTO } from "../../../schema/dto/event.dto";
 import * as mapper from '../event.mapper'
 import EventInterface from "../../../interfaces/event.interface";
 import { NextFunction, Request, Response } from "express";

@@ -2,7 +2,7 @@ import { AbstractDataTypeConstructor, Identifier } from "sequelize";
 import Event, { EventInput, EventOutput } from "../models/Event.model";
 import { ApiError } from "../../utils/custom-api-error";
 import { httpStatusCodes } from "../../utils/httpStatusCodes";
-import { UpdateEventDTO } from "../dto/event.dt";
+import { UpdateEventDTO } from "../dto/event.dto";
 
 export class EventDAL {
     static async createEvent(userData: EventInput): Promise<EventOutput> {

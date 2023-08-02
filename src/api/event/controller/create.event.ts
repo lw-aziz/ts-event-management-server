@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../../../utils/custom-api-error";
 import { httpStatusCodes } from "../../../utils/httpStatusCodes";
-import { CreateEventDTO } from "../../../schema/dto/event.dt";
+import { CreateEventDTO } from "../../../schema/dto/event.dto";
 import { EventDAL } from "../../../schema/dal/event.dal";
 import EventMapper from "../event.mapper";
 

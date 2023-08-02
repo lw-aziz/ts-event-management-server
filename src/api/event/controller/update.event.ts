@@ -5,7 +5,7 @@ import { ApiError } from "../../../utils/custom-api-error";
 import { httpStatusCodes } from "../../../utils/httpStatusCodes";
 import { EventDAL } from "../../../schema/dal/event.dal";
 import EventMapper from '../event.mapper';
-import { UpdateEventDTO } from '../../../schema/dto/event.dt';
+import { UpdateEventDTO } from '../../../schema/dto/event.dto';
 
 const updateEvent = async (req: Request, res: Response, next: NextFunction) => {
     try {
