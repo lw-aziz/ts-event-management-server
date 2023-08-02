@@ -15,7 +15,7 @@ export class InvitationDAL {
     }
 
     static async getInvitationsByUser(userId: AbstractDataTypeConstructor): Promise<InvitationOutput[] | []> {
-        const invitations = await Invitation.findAll({ where: { userId } });
+        const invitations = await Invitation.findAll({ where: { invitedTo: userId } });
         return invitations;
     }
 
