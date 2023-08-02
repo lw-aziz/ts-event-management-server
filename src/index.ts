@@ -1,46 +1,39 @@
-import express, { Express, Request, Response } from 'express';
+import express, { NextFunction, Request, Response, Express } from 'express';
 import dotenv from 'dotenv';
-import http from 'http';
-import { sequelize } from './sequelize-client';
 import { configData } from './config/config';
-import { initUser } from './schema/models/User.model';
-
+import routes from './api/routes'
+import sequelizeConnection from './schema/config';
 
 
 dotenv.config();
+const port = configData.API_PORT;
 
-const app: Express = express();
-const httpServer = http.createServer(app);
+export const getApp = () => {
+    const app: Express = express()
 
-const port = process.env.PORT;
+    // Body parsing Middleware
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Server running OK');
-});
+    app.get('/', async (req: Request, res: Response): Promise<Response> => {
+        return res.status(200).send({ message: `Welcome to the cookbook API! \n Endpoints available at http://localhost:${port}/api/v1` })
+    })
 
+    app.use('/api/v1', routes);
 
-async function sequelizeSync() {
+    return app
+}
+export const startServer = () => {
+    const app = getApp()
     try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-
-        initUser(sequelize);
-
-        // Define any other models and associations here if needed
-
-        // Synchronize all defined models to the database
-        await sequelize.sync();
-        console.log('All models were synchronized successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    } finally {
-        // Close the Sequelize connection after synchronization
-        await sequelize.close();
+        app.listen(port, () => {
+            console.log(`Server running on http://localhost:${port}`)
+        })
+    } catch (error: any) {
+        console.log(`Error occurred: ${error.message}`)
     }
 }
 
-//sequelize.sync().then(async () => {
-httpServer.listen(port, async () => {
-    console.log(`🚀 Server ready at http://localhost:${configData.API_PORT}`);
-    await sequelizeSync();
+sequelizeConnection.sync().then(async () => {
+    startServer();
 });

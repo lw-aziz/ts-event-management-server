@@ -14,6 +14,8 @@ const ConfigSchema = Type.Strict(
         DB_PASSWORD: Type.String(),
         DB_HOST: Type.String(),
         DB_NAME: Type.String(),
+        JWT_SECRET: Type.String(),
+        JWT_EXPIRATION: Type.String(),
     })
 );
 const ajv = new Ajv({
@@ -56,4 +58,6 @@ export const configData: Config = {
     DB_NAME: filteredEnv.DB_NAME,
     LOG_LEVEL: filteredEnv.LOG_LEVEL,
     NODE_ENV: filteredEnv.NODE_ENV,
+    JWT_SECRET: filteredEnv.JWT_SECRET,
+    JWT_EXPIRATION: filteredEnv.JWT_EXPIRATION,
 };

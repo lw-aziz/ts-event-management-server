@@ -1,7 +1,24 @@
+import { operatorsAliases } from './sequelize-operators-aliases';
 import { configData } from "../config/config";
-import { DbConfigInterface } from "../interfaces/DbConfig.interface";
+import { Sequelize } from 'sequelize-typescript';
+import { Dialect, PoolOptions } from "sequelize";
 
-export const dbConfig: DbConfigInterface = {
+export interface DbConfigInterface {
+    port: number | undefined,
+    password: string,
+    username: string,
+    host: string,
+    database: string,
+    reconnect: boolean,
+    dialect: Dialect,
+    dialectOptions: {
+        requestTimeout: number,
+    },
+    pool: PoolOptions,
+    migrationStorageTableName: '_migrations',
+};
+
+const dbConfig: DbConfigInterface = {
     port: configData.DB_PORT ? +configData.DB_PORT : 5432,
     password: '1234',
     username: configData.DB_USER,
@@ -20,3 +37,20 @@ export const dbConfig: DbConfigInterface = {
     },
     migrationStorageTableName: '_migrations',
 };
+
+export const sequelizeConnection = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+    operatorsAliases,
+    host: dbConfig.host,
+    port: dbConfig.port,
+    dialect: dbConfig.dialect,
+    dialectOptions: dbConfig.dialectOptions,
+    pool: dbConfig.pool,
+    logging: false,
+    //models: [__dirname + '/**/*.model.ts'],
+    models: [__dirname + '/**/*.model.ts'],
+    modelMatch: (filename, member) => {
+        return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
+    },
+});
+
+export default sequelizeConnection;
