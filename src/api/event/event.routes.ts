@@ -5,6 +5,7 @@ import createEvent from './controller/create.event';
 import getEvent from './controller/get.event';
 import deleteEvent from './controller/delete.event';
 import updateEvent from './controller/update.event';
+import createInvitation from '../invitation/controller/create.invitation';
 
 const eventRouter = Router();
 
@@ -14,5 +15,8 @@ eventRouter.post('/', createEvent)
 eventRouter.get('/:id', getEvent)
 eventRouter.delete('/:id', deleteEvent)
 eventRouter.put('/:id', updateEvent)
+
+// invitation Routes
+eventRouter.post('/:eventId/invites', createInvitation)
 
 export default eventRouter;

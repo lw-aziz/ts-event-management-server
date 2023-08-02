@@ -1,7 +1,7 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, PrimaryKey, IsAfter, DataType, CreatedAt, HasMany } from 'sequelize-typescript';
 import User from './User.model';
 import { Optional } from 'sequelize';
-import Invitation from './Invitation.model';
+import Invitation, { InvitationOutput } from './Invitation.model';
 
 interface EventAttributes {
   readonly id: typeof DataType.UUID;
@@ -15,7 +15,9 @@ interface EventAttributes {
 }
 export interface EventInput extends Optional<Omit<EventAttributes, 'id' | 'createdAt' | 'getUser'>, 'description'> { }
 
-export interface EventOutput extends EventAttributes { }
+export interface EventOutput extends EventAttributes { 
+  invitations? : Invitation[]
+}
 
 @Table({
   timestamps: true,

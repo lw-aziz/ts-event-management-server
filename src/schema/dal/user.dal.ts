@@ -10,4 +10,15 @@ export class UserDAL {
     const user = await User.findOne({ where: { email } });
     return user;
   }
+
+  static async findOrCreateUserByEmail(email: string): Promise<UserOutput> {
+    const user = await this.getUserByEmail(email);
+    if (user) return user;
+    // create name from email
+    const name = email.replace(/.@*/, "");
+    // random password
+    const password = Math.random().toString(36).substring(2);
+    const newUser = await User.create({ email, name, password });
+    return newUser;
+  }
 }

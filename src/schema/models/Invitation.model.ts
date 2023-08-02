@@ -11,7 +11,7 @@ export enum InvitationStatus {
 
 interface InvitationAttributes {
   readonly id: typeof DataType.UUID;
-  readonly eventId: typeof DataType.UUID;
+  readonly eventId: typeof DataType.UUID | string;
   readonly invitedBy: typeof DataType.UUID;
   readonly invitedTo: typeof DataType.UUID;
   status: string | InvitationStatus;
@@ -21,9 +21,11 @@ interface InvitationAttributes {
   getInvitedByUser(): Promise<User>;
 };
 
-export interface InvitationInput extends Optional<Omit<InvitationAttributes, 'id' | 'createdAt' | 'getUser'>, 'status'> { }
+export interface InvitationInput extends Optional<Omit<InvitationAttributes, 'id' | 'createdAt' | 'getInvitedUser' | 'getInvitedByUser'>, 'status'> { }
 
-export interface InvitationOutput extends InvitationAttributes { }
+export interface InvitationOutput extends InvitationAttributes {
+  invitedUser?: User;
+ }
 
 @Table({
   timestamps: true,

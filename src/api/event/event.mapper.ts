@@ -1,5 +1,6 @@
 import EventInterface from "../../interfaces/event.interface";
 import { EventOutput } from "../../schema/models/Event.model";
+import InvitationMapper from "../invitation/invitation.mapper";
 
 
 export default class EventMapper {
@@ -11,7 +12,8 @@ export default class EventMapper {
             description: eventData.description,
             eventDate: eventData.eventDate,
             userId: eventData.userId,
-            createdAt: eventData.createdAt
+            createdAt: eventData.createdAt,
+            invitations: eventData.invitations?.map(invitation => InvitationMapper.toInvitation(invitation))
         }
     }
 

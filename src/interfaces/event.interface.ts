@@ -1,4 +1,5 @@
 import { AbstractDataTypeConstructor } from "sequelize";
+import InvitationInterface from "./invitation.interface";
 
 export default interface EventInterface {
     id: AbstractDataTypeConstructor;
@@ -8,5 +9,7 @@ export default interface EventInterface {
     userId: AbstractDataTypeConstructor;
     createdAt: Date;
     updatedAt?: Date
-    deletedAt?: Date
+    deletedAt?: Date,
+    invitations?: InvitationInterface[]
+
 }
