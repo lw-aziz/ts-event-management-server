@@ -24,7 +24,7 @@ interface InvitationAttributes {
 export interface InvitationInput extends Optional<Omit<InvitationAttributes, 'id' | 'createdAt' | 'getInvitedUser' | 'getInvitedByUser'>, 'status'> { }
 
 export interface InvitationOutput extends InvitationAttributes {
-  invitedUser?: User;
+  invitedToUser?: User;
  }
 
 @Table({

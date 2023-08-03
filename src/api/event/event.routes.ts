@@ -16,7 +16,7 @@ eventRouter.get('/:id', getEvent)
 eventRouter.delete('/:id', deleteEvent)
 eventRouter.put('/:id', updateEvent)
 
-// invitation Routes
+// create invitation route
 eventRouter.post('/:eventId/invites', createInvitation)
 
 export default eventRouter;

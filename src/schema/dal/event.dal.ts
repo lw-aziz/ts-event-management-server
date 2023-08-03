@@ -4,6 +4,7 @@ import { ApiError } from "../../utils/custom-api-error";
 import { httpStatusCodes } from "../../utils/httpStatusCodes";
 import { UpdateEventDTO } from "../dto/event.dto";
 import Invitation from "../models/Invitation.model";
+import User from "../models/User.model";
 
 export class EventDAL {
     static async createEvent(userData: EventInput): Promise<EventOutput> {
@@ -18,10 +19,24 @@ export class EventDAL {
 
     static async getById(eventId: Identifier): Promise<EventOutput | null> {
         try {
-            const event = await Event.findByPk(eventId, { include: [Invitation] });
+            const event = await Event.findByPk(eventId, {
+                include: [
+                    {
+                        model: Invitation,
+                        as: "invitations",
+                        include: [
+                            {
+                                model: User,
+                                as: "invitedToUser",
+                            }
+                        ]
+                    }
+
+                ]
+            });
             return event;
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
