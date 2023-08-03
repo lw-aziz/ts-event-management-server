@@ -14,6 +14,7 @@ const acceptInvitation = async (req: Request, res: Response, next: NextFunction)
         const invitationId: Identifier = id;
         const invitation = await InvitationDAL.getById(invitationId);
         if (!invitation) throw new ApiError('Invitation not found', httpStatusCodes.NOT_FOUND);
+        if(user.id !== invitation.invitedTo ) throw new ApiError('Unauthorized, you are not invited to this event.', httpStatusCodes.UNAUTHENTICATED);
         invitation.status = InvitationStatus.ACCEPTED;
         await invitation.save();
         return res.status(200).send(InvitationMapper.toInvitation(invitation));
