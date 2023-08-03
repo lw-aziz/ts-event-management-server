@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "tsc -b",
     "start": "node dist/index.js",
-    "w": "tsx watch src .env"
+    "watch": "tsx watch src .env"
   },
   "keywords": [],
   "author": "",
